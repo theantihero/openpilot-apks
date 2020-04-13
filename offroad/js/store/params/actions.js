@@ -41,6 +41,7 @@ const PARAMS = [
   "CommunityFeaturesToggle",
   "IsLdwEnabled",
   "LaneChangeEnabled",
+  "VisionRadarToggle",
 ].concat(ALERT_PARAMS);
 
 export function refreshParams(params) {

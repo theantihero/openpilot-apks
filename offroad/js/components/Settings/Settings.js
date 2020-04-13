@@ -50,6 +50,7 @@ const Icons = {
     minus: require('../../img/icon_minus.png'),
     mapSpeed: require('../../img/icon_map.png'),
     openpilot: require('../../img/icon_openpilot.png'),
+    visionRadar: require('../../img/icon_vision.png'),
 }
 
 class Settings extends Component {
@@ -264,6 +265,7 @@ class Settings extends Component {
                 Passive: isPassive,
                 IsLdwEnabled: isLaneDepartureWarningEnabled,
                 LaneChangeEnabled: laneChangeEnabled,
+                VisionRadarToggle: visionRadarToggle,
             }
         } = this.props;
         const { expandedCell, speedLimitOffsetInt } = this.state;
@@ -315,6 +317,15 @@ class Settings extends Component {
                             isExpanded={ expandedCell == 'ldw' }
                             handleExpanded={ () => this.handleExpanded('ldw') }
                             handleChanged={ this.props.setLaneDepartureWarningEnabled } />
+                        <X.TableCell
+                            type='switch'
+                            title='Enable Vision Radar'
+		            value={ !!parseInt(visionRadarToggle) }
+                            iconSource={ Icons.visionRadar }
+                            description='Toggles between vision and physical radar. Warning: Highly experimental!'
+                            isExpanded={ expandedCell == 'vision_radar_toggle' }
+		            handleExpanded={ () => this.handleExpanded('vision_radar_toggle') } 
+		            handleChanged={ this.props.setVisionRadarToggle } />
                         <X.TableCell
                             type='switch'
                             title='Record and Upload Driver Camera'
@@ -862,6 +873,18 @@ const mapDispatchToProps = dispatch => ({
     },
     setRecordFront: (recordFront) => {
         dispatch(updateParam(Params.KEY_RECORD_FRONT, (recordFront | 0).toString()));
+    },
+    setVisionRadarToggle: (visionRadarToggle) => {
+        if (visionRadarToggle == 1) {
+            Alert.alert('Enable Feature', 'Highly experimental! Use at your own risk!', [
+                { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+                { text: 'Enable', onPress: () => {
+                    dispatch(updateParam(Params.KEY_VISION_RADAR_TOGGLE, (visionRadarToggle | 0).toString()));
+                } },
+            ]);
+        } else {
+            dispatch(updateParam(Params.KEY_VISION_RADAR_TOGGLE, (visionRadarToggle | 0).toString()));
+        }
     },
     setSshEnabled: (isSshEnabled) => {
         dispatch(updateSshEnabled(!!isSshEnabled));
