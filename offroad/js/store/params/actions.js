@@ -43,6 +43,7 @@ const PARAMS = [
   "IsLdwEnabled",
   "LaneChangeEnabled",
   "IsRHD"
+  "VisionRadarToggle",
 ].concat(ALERT_PARAMS);
 
 export function refreshParams(params) {
