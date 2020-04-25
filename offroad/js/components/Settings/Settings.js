@@ -914,6 +914,7 @@ const mapDispatchToProps = dispatch => ({
         } else {
             dispatch(updateParam(Params.KEY_VISION_RADAR_TOGGLE, (visionRadarToggle | 0).toString()));
         }
+    },
     setIsRHD: (isRHD) => {
         dispatch(updateParam(Params.KEY_IS_RHD, (isRHD | 0).toString()));
     },
