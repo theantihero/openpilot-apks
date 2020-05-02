@@ -38,4 +38,5 @@ export const Params = {
     KEY_IS_RHD: 'IsRHD',
     KEY_IS_OFFROAD: 'IsOffroad',
     KEY_VISION_RADAR_TOGGLE: 'VisionRadarToggle',
+    KEY_IS_HONDA_BOSCH: 'IsHondaBosch',
 };

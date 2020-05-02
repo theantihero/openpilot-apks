@@ -267,6 +267,7 @@ class Settings extends Component {
                 IsLdwEnabled: isLaneDepartureWarningEnabled,
                 LaneChangeEnabled: laneChangeEnabled,
                 VisionRadarToggle: visionRadarToggle,
+		IsHondaBosch: isHondaBosch,
             },
         } = this.props;
         const { expandedCell, speedLimitOffsetInt } = this.state;
@@ -321,6 +322,7 @@ class Settings extends Component {
                         <X.TableCell
                             type='switch'
                             title='Enable Vision Radar'
+		            isDisabled={ !parseInt(isHondaBosch) }
 		            value={ !!parseInt(visionRadarToggle) }
                             iconSource={ Icons.visionRadar }
                             description='Toggles between vision and physical radar. Warning: Highly experimental!'
@@ -908,6 +910,7 @@ const mapDispatchToProps = dispatch => ({
     },
     setIsDriverViewEnabled: (isDriverViewEnabled) => {
         dispatch(updateParam(Params.KEY_IS_DRIVER_VIEW_ENABLED, (isDriverViewEnabled | 1).toString()));
+    },
     setVisionRadarToggle: (visionRadarToggle) => {
         if (visionRadarToggle == 1) {
             Alert.alert('Enable Feature', 'Highly experimental! Use at your own risk!', [
