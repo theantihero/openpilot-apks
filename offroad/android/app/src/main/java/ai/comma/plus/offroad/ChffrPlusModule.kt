@@ -236,6 +236,15 @@ class ChffrPlusModule(val ctx: ReactApplicationContext) :
         }
     }
 
+    @ReactMethod
+    fun resetSDCard() {
+        try {
+            Runtime.getRuntime().exec(arrayOf("/system/bin/su", "-c", "rm -rf /sdcard/realdata/*"))
+        } catch (e: IOException) {
+            CloudLog.exception("BaseUIReactModule.resetSDCard", e)
+        }
+    }
+
 
     @ReactMethod
     fun shutdown() {

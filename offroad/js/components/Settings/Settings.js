@@ -54,6 +54,7 @@ const Icons = {
     monitoring: require('../../img/icon_monitoring.png'),
     road: require('../../img/icon_road.png'),
     visionRadar: require('../../img/icon_vision.png'),
+    sdcard: require('../../img/icon_sdcard.png'),
 }
 
 class Settings extends Component {
@@ -131,6 +132,13 @@ class Settings extends Component {
         Alert.alert('Reboot', 'Resetting calibration requires a reboot.', [
             { text: 'Later', onPress: () => {}, style: 'cancel' },
             { text: 'Reboot Now', onPress: () => ChffrPlus.reboot() },
+        ]);
+    }
+    handleClearStorageToggle = async () => {
+        this.setState({ calibration: null });
+        Alert.alert('Clearing SD Card', 'Are you sure you want to clear your SD Card Storage?', [
+            { text: 'Later', onPress: () => {}, style: 'cancel' },
+            { text: 'Delete', onPress: () => ChffrPlus.resetSDCard() },
         ]);
     }
 
@@ -530,6 +538,22 @@ class Settings extends Component {
                                 onPress={ this.props.setIsDriverViewEnabled  }
                                 style={ { minWidth: '100%' } }>
                                 Preview
+                            </X.Button>
+                        </X.TableCell>
+		        <X.TableCell
+                            type='custom'
+                            title='Clear SD Card'
+                            iconSource={ Icons.sdcard }
+                            description='Running out of storage? Please make sure to take out certain footages via SFTP that you want to preserve otherwise, proceeding will clear the SD Card of its contents.'
+                            isExpanded={ expandedCell == 'storage_clear_toggle' }
+                            handleExpanded={ () => this.handleExpanded('storage_clear_toggle') } >
+                            <X.Button
+                                size='tiny'
+                                color='settingsDefault'
+                                isDisabled={ !isOffroad }
+                                onPress={ this.handleClearStorageToggle  }
+                                style={ { minWidth: '100%' } }>
+                                Clear SD
                             </X.Button>
                         </X.TableCell>
                     </X.Table>
